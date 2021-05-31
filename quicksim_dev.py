@@ -59,9 +59,15 @@ def augment_vectors(vectors: np.ndarray) -> np.ndarray:
     As a result, an angular nearest neighbours search will return top related items of
     the inner product.
 
-    This method was introduced in the paper: "Speeding Up the Xbox Recommender System
+    This technique was introduced in the paper: "Speeding Up the Xbox Recommender System
     Using a Euclidean Transformation for Inner-Product Spaces"
     https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/XboxInnerProduct.pdf
+
+    Args:
+        vectors (np.ndarray): (embedding) vectors.
+
+    Returns:
+        np.ndarray: Augmented (embedding) vectors.
     """
     logger.info("Augmenting vectors with Euclidean transformation")
     vector_norms = np.linalg.norm(vectors, axis=1)
@@ -71,20 +77,25 @@ def augment_vectors(vectors: np.ndarray) -> np.ndarray:
     augmented_vectors = np.append(
         vectors, extra_dimension.reshape(vector_norms.shape[0], 1), axis=1
     )
+
     return augmented_vectors
 
 
-def build_vector_index(vectors: np.ndarray, n_trees: int = 10) -> AnnoyIndex:
-    """
-    https://github.com/spotify/annoy
-
-    Build index on disk to enable indexing big datasets that won't fit into memory
+def build_vector_index(
+    vectors: np.ndarray, n_trees: int = 5, save_index: bool = False
+) -> AnnoyIndex:
+    """Builds a vector index for fast (approximate) nearest neighbor search.
 
     More trees is slower but gives higher precision when querying.
-    After building, no more items can be added.
+    This implementation is powered by https://github.com/spotify/annoy.
 
-    Annoy has the advantage of saving to a memory map, and so playing well with
-    multiple processes in a production environment
+    Args:
+        vectors (np.ndarray): [description]
+        n_trees (int, optional): [description]. Defaults to 5.
+        save_index (bool, optional): [description]. Defaults to False.
+
+    Returns:
+        AnnoyIndex: Built vector index.
     """
     logger.info(f"Building vector index with {n_trees} trees")
     n_dimensions = vectors.shape[1]
@@ -95,39 +106,57 @@ def build_vector_index(vectors: np.ndarray, n_trees: int = 10) -> AnnoyIndex:
         vector_index.add_item(item, vector)
 
     vector_index.build(n_trees=n_trees)
-    # vector_index.save("vector_index.ann")
+
+    if save_index:
+        vector_index.save("vector_index.ann")
+
     return vector_index
 
 
-def find_similar(
-    vector_id: int, vector_index: AnnoyIndex, n_vectors: int = 10,
+def find_most_similar(
+    vector_index: AnnoyIndex, vector_id: int = None, n_vectors: int = 10,
 ) -> List:
-    logger.info(f"Querying most similar vectors for vector id {vector_id}")
-    similar_vectors = vector_index.get_nns_by_item(vector_id, n_vectors)
-    return similar_vectors
+    """[summary]
 
+    Args:
+        vector_index (AnnoyIndex): [description]
+        vector_id (int, optional): [description]. Defaults to None.
+        n_vectors (int, optional): [description]. Defaults to 10.
 
-def find_similar_vectors_for_all(
-    vector_index: AnnoyIndex, n_vectors: int = 10,
-) -> List:
-    logger.info("Querying most similar vectors for all indexed vectors")
-    n_vectors_in_index = vector_index.get_n_items()
+    Returns:
+        List: [description]
+    """
+    if vector_id is not None:
+        logger.info(f"Querying most similar vectors for vector id {vector_id}")
+        most_similar_vectors = vector_index.get_nns_by_item(vector_id, n_vectors)
+    else:
+        n_vectors_in_index = vector_index.get_n_items()
+        most_similar_vectors = np.empty([n_vectors_in_index, n_vectors], dtype=np.int32)
+        logger.info(
+            f"Querying most similar vectors for all {n_vectors_in_index} vectors"
+        )
+        for vector in trange(n_vectors_in_index):
+            most_similar_vectors[vector] = vector_index.get_nns_by_item(
+                vector, n_vectors
+            )
 
-    similar_vectors = np.empty([n_vectors_in_index, n_vectors], dtype=np.int32)
-    for vector in trange(n_vectors_in_index):
-        similar_vectors[vector] = vector_index.get_nns_by_item(vector, n_vectors)
-
-    return similar_vectors
+    return most_similar_vectors
 
 
 def recommend(
     user_vectors: np.ndarray, item_vectors: np.ndarray, n_vectors: int = 10
 ) -> np.ndarray:
-    """Basically we add a nomalizing factor to each item vector - making their
-    distances equal with each other. Then when we query with a user vector, we add a 0
-    to the end, and the result is proportional to the inner producct of the user and
-    item vectors. This is a sneaky way to do an aproximate maximum inner product search.
+    """[summary]
+
+    Args:
+        user_vectors (np.ndarray): [description]
+        item_vectors (np.ndarray): [description]
+        n_vectors (int, optional): [description]. Defaults to 10.
+
+    Returns:
+        np.ndarray: [description]
     """
+
     logger.info("Augmenting user vectors")
     extra_dimension = np.zeros((user_vectors.shape[0], 1))
     augmented_user_vectors = np.concatenate((user_vectors, extra_dimension), axis=1)
@@ -136,13 +165,13 @@ def recommend(
     vector_index = build_vector_index(augmented_item_vectors, n_trees=10)
 
     n_users = augmented_user_vectors.shape[0]
-    top_items = np.empty([n_users, n_vectors], dtype=np.int32)
+    recommendations = np.empty([n_users, n_vectors], dtype=np.int32)
     logger.info(f"Searching top {n_vectors} items for each user")
     for user in trange(n_users):
         user_vector = augmented_user_vectors[user]
-        top_items[user] = vector_index.get_nns_by_vector(user_vector, n_vectors)
+        recommendations[user] = vector_index.get_nns_by_vector(user_vector, n_vectors)
 
-    return top_items
+    return recommendations
 
 
 ########################################################################
@@ -150,10 +179,11 @@ def recommend(
 vectors = np.random.rand(int(1e6), 16)
 user_vectors = np.random.rand(int(1e4), 16)
 
-## %%timeit
-top_items = recommend(user_vectors, vectors)
+vector_index = build_vector_index(vectors)
 
-top_items
+recommendations = recommend(user_vectors, vectors)
+find_most_similar(vector_index, vector_id=None)
+
 
 #################
 
@@ -174,19 +204,16 @@ top_items
 
 ########################################################################
 
-ratings = pd.read_csv(
-    "data/ml-1m/ratings.dat",
-    delimiter="::",
-    names=["userId", "movieId", "rating", "timestamp"],
-    engine="python",
-)
+# ratings = pd.read_csv(
+#     "data/ml-1m/ratings.dat",
+#     delimiter="::",
+#     names=["userId", "movieId", "rating", "timestamp"],
+#     engine="python",
+# )
 
-movies = pd.read_table(
-    "data/ml-1m/movies.dat",
-    delimiter="::",
-    names=["movieId", "title", "genres"],
-    engine="python",
-)
-
-movies
-ratings
+# movies = pd.read_table(
+#     "data/ml-1m/movies.dat",
+#     delimiter="::",
+#     names=["movieId", "title", "genres"],
+#     engine="python",
+# )
