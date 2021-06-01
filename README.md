@@ -1,7 +1,7 @@
 ![](quicksim.png)
 
 
-Lightning fast (embedding) vector similarity search.
+Lightning fast (embedding) vector similarity search for recommendation.
 
 [//]: <> (quicksim / hypervec / fastrec / hypervector / turboquery / speedsearch / hypersift / blaze / topsearch)
 
