@@ -27,19 +27,21 @@ logger = logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 ################################################################
 
 
-ratings = pd.read_csv(
-    "/Users/marnix_koops/projects/c1/customerone/src/customerone/pipelines/retail/recommendation/data/movielens/ratings.dat",
-    delimiter="::",
-    names=["userId", "movieId", "rating", "timestamp"],
-    engine="python",
-)
+# ratings = pd.read_csv(
+#     "/Users/marnix_koops/projects/c1/customerone/src/customerone/pipelines/retail/recommendation/data/movielens/ratings.dat",
+#     delimiter="::",
+#     names=["userId", "movieId", "rating", "timestamp"],
+#     engine="python",
+# )
 
-movies = pd.read_table(
-    "/Users/marnix_koops/projects/c1/customerone/src/customerone/pipelines/retail/recommendation/data/movielens/movies.dat",
-    delimiter="::",
-    names=["movieId", "title", "genres"],
-    engine="python",
-)
+# movies = pd.read_table(
+#     "/Users/marnix_koops/projects/c1/customerone/src/customerone/pipelines/retail/recommendation/data/movielens/movies.dat",
+#     delimiter="::",
+#     names=["movieId", "title", "genres"],
+#     engine="python",
+# )
+
+ratings = pd.read_csv("/Users/marnix_koops/projects/quicksim/data/ml-25m-ratings.csv")
 
 encoded_interaction_data = encode_interaction_data(
     data=ratings,

@@ -63,6 +63,7 @@ vectors = np.array([[1, 2, 3], [1, 2, 4]])
 * https://www.pinecone.io/docs/examples
 * https://www.pinecone.io/docs/quickstart-python/
 * https://towardsdatascience.com/neural-network-embeddings-explained-4d028e6f0526
+* https://www.benfrederickson.com/approximate-nearest-neighbours-for-recommender-systems/
 
 
 The importance of (embedding) vectors for ML purposes is exploding. They are fundamental in NLP, (image) similarity search and recommender systems.
