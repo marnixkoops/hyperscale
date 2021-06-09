@@ -1,6 +1,6 @@
 
 
-**Lightning fast recommendations.**
+**Lightning fast recommendations at scale.**
 
 ## 👋 Introduction
 

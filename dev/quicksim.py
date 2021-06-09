@@ -91,7 +91,9 @@ class quicksim:
         Returns:
             np.ndarray: Augmented (embedding) vectors.
         """
-        logger.info("Augmenting vectors with Euclidean transformation")
+        logger.info(
+            "Augmenting item vectors with Euclidean transformation for recommendation"
+        )
         vector_norms = np.linalg.norm(vectors, axis=1)
         max_vector_norm = vector_norms.max()
 
@@ -116,7 +118,7 @@ class quicksim:
             np.ndarray: [description]
         """
 
-        logger.info("Augmenting user vectors with extra dimension")
+        logger.info("Augmenting user vectors with extra dimension for recommendation")
         extra_dimension = np.zeros((user_vectors.shape[0], 1))
         augmented_user_vectors = np.concatenate((user_vectors, extra_dimension), axis=1)
 
