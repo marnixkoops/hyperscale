@@ -2,8 +2,6 @@
 
 **Lightning fast recommendations at scale.**
 
-## 👋 Introduction
-
 `package` solves the main challenge in real world recommender systems: querying recommendations at scale.
 
 When the number of items is large, scoring and ranking all of them is infeasible. `package` implements algorithms to leverage fast Approximate Nearest Neighbors (ANN) in high-dimensional space for similarity and maximum inner-product search (recommendation).
@@ -43,4 +41,6 @@ most_similar = package.find_most_similar(vector_index)
 >>> 100%|██████████| 10000/10000 [00:00<00:00, 91580.89it/s]
 ```
 
-## 📎 References
+## 🖇️ References
+
+* Bachrach, Yoram, et al. ["Speeding up the Xbox Recommender System using a Euclidean transformation for inner-product spaces."](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/XboxInnerProduct.pdf) *Proceedings of the 8th ACM Conference on Recommender systems. 2014.*
