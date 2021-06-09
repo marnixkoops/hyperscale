@@ -1,6 +1,6 @@
 
 
-**Lightning fast recommendations at scale.**
+**⚡ Lightning fast similarity search and recommendations at scale.**
 
 `package` solves the main challenge in real world recommender systems: querying recommendations at scale.
 
