@@ -10,6 +10,8 @@ Lightning fast (embedding) vector similarity search for recommendation.
 
 Lightning fast top item search for recommendations
 
+Lightning fast recommendations for any (embedding) vector-based machine learning model.
+
 ---
 
 * Sparse matrix cosine/jaccard vector similarity
@@ -64,6 +66,7 @@ vectors = np.array([[1, 2, 3], [1, 2, 4]])
 * https://www.pinecone.io/docs/quickstart-python/
 * https://towardsdatascience.com/neural-network-embeddings-explained-4d028e6f0526
 * https://www.benfrederickson.com/approximate-nearest-neighbours-for-recommender-systems/
+* https://erikbern.com/2015/10/01/nearest-neighbors-and-vector-models-part-2-how-to-search-in-high-dimensional-spaces.html
 
 
 The importance of (embedding) vectors for ML purposes is exploding. They are fundamental in NLP, (image) similarity search and recommender systems.
@@ -80,3 +83,10 @@ Use-cases:
 
 Item vectors -> find most similar items
 User and item vectors -> recommend top items to a user
+
+# use embedding vector to predict tag (find most similar tag)
+# Large-Scale Automated Content Tagging
+# Visualizing ANN behavior
+
+# Visualizing tag embedding vectors
+# these blocks of numbers are driving recommendations

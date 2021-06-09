@@ -16,36 +16,36 @@ logger = logging.getLogger("⚡quicksim")
 ######################
 
 
-def cosine_similarities(matrix):
-    """Cosine similarity for continuous vectors."""
-    matrix = matrix.tocsc()
-    normalized_matrix = normalize(matrix, axis=0)
-    cosine_matrix = normalized_matrix.T * normalized_matrix
-    return cosine_matrix
+# def cosine_similarities(matrix):
+#     """Cosine similarity for continuous vectors."""
+#     matrix = matrix.tocsc()
+#     normalized_matrix = normalize(matrix, axis=0)
+#     cosine_matrix = normalized_matrix.T * normalized_matrix
+#     return cosine_matrix
 
 
-def jaccard_similarities(matrix):
-    """Jaccard similarity for binary vectors."""
-    column_sums = matrix.getnnz(axis=0)
-    ab = matrix.T * matrix
+# def jaccard_similarities(matrix):
+#     """Jaccard similarity for binary vectors."""
+#     column_sums = matrix.getnnz(axis=0)
+#     ab = matrix.T * matrix
 
-    aa = np.repeat(column_sums, ab.getnnz(axis=0))
-    bb = column_sums[ab.indices]
+#     aa = np.repeat(column_sums, ab.getnnz(axis=0))
+#     bb = column_sums[ab.indices]
 
-    jaccard_similarities = ab.copy()
-    jaccard_similarities.data /= aa + bb - ab.data
+#     jaccard_similarities = ab.copy()
+#     jaccard_similarities.data /= aa + bb - ab.data
 
-    return jaccard_similarities
+#     return jaccard_similarities
 
 
-matrix = scipy.sparse.rand(10 ** 2, 10 ** 2, 0.05, format="csc")
+# matrix = scipy.sparse.rand(10 ** 2, 10 ** 2, 0.05, format="csc")
 
-## %%timeit
-cosine_similarities(matrix)
+# ## %%timeit
+# cosine_similarities(matrix)
 
-matrix.data[:] = 1
-## %%timeit
-jaccard_similarities(matrix)
+# matrix.data[:] = 1
+# ## %%timeit
+# jaccard_similarities(matrix)
 
 
 ######################
@@ -183,6 +183,14 @@ vector_index = build_vector_index(vectors)
 
 recommendations = recommend(user_vectors, vectors)
 find_most_similar(vector_index, vector_id=None)
+
+
+#################
+
+from implicit.als import AlternatingLeastSquares
+from implicit.approximate_als import AnnoyAlternatingLeastSquares
+
+annoy_model = AnnoyAlternatingLeastSquares(factors=16, n_trees=10)
 
 
 #################
