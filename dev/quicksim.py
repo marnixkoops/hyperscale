@@ -136,6 +136,9 @@ class quicksim:
 
         return recommendations
 
+    def explain(self):
+        pass
+
 
 item_vectors = np.random.rand(10000, 16)
 user_vectors = np.random.rand(1000, 16)
@@ -146,3 +149,4 @@ recommendations = quicksim.recommend(user_vectors, item_vectors)
 
 vector_index = quicksim.build_vector_index(item_vectors)
 most_similar = quicksim.find_most_similar(vector_index)
+explanation = quicksim.explain()
