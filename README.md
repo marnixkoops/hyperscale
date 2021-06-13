@@ -1,6 +1,6 @@
 
 
-**⚡ Lightning fast recommendations and similarity search.**
+**⚡ Lightning fast recommendations and similarity search**
 
 `turboquery` solves the main challenge in real world recommender systems: querying recommendations fast at scale.
 
@@ -27,19 +27,6 @@ turboquery = turboquery()
 vector_index = turboquery.build_vector_index(vectors)
 recommendations = turboquery.recommend(user_vectors, vectors)
 most_similar = turboquery.find_most_similar(vector_index)
-```
-
-```
->>> INFO:⚡turboquery:Augmenting user vectors with extra dimension
->>> INFO:⚡turboquery:Augmenting vectors with Euclidean transformation
->>> INFO:⚡turboquery:Building vector index with 5 trees
->>> 100%|██████████| 10000/10000 [00:00<00:00, 361652.76it/s]
->>> INFO:⚡turboquery:Searching top 10 items for each user
->>> 100%|██████████| 1000/1000 [00:00<00:00, 66724.53it/s]
->>> INFO:⚡turboquery:Building vector index with 5 trees
->>> 100%|██████████| 10000/10000 [00:00<00:00, 360304.44it/s]
->>> INFO:⚡turboquery:Querying most similar vectors for all 10000 vectors
->>> 100%|██████████| 10000/10000 [00:00<00:00, 91580.89it/s]
 ```
 
 ## 🖇️ References
