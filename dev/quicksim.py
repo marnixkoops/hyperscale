@@ -20,12 +20,12 @@ class quicksim:
         This implementation is powered by https://github.com/spotify/annoy.
 
         Args:
-            vectors (np.ndarray): [description]
-            n_trees (int, optional): [description]. Defaults to 5.
-            save_index (bool, optional): [description]. Defaults to False.
+            vectors: (embedding) vectors.
+            n_trees: Number of trees to build for searching the index.
+            save_index: Whether to save the index on disk.
 
         Returns:
-            AnnoyIndex: Built vector index.
+            vector_index: Built vector index.
         """
         logger.info(f"Building vector index with {n_trees} trees")
         n_dimensions = vectors.shape[1]
@@ -48,12 +48,12 @@ class quicksim:
         """[summary]
 
         Args:
-            vector_index (AnnoyIndex): [description]
-            vector_id (int, optional): [description]. Defaults to None.
-            n_vectors (int, optional): [description]. Defaults to 10.
+            vector_index: Built vector index.
+            vector_id: Index of vector to find the most similar vectors for.
+            n_vectors: Number of most similar vectors to find.
 
         Returns:
-            List: [description]
+            most_similar_vectors: top N most similar vectors.
         """
         if vector_id is not None:
             logger.info(f"Querying most similar vectors for vector id {vector_id}")
@@ -76,23 +76,23 @@ class quicksim:
     def augment_vectors(self, vectors: np.ndarray) -> np.ndarray:
         """Augments vectors for fast (aproximate) maximum inner product search.
 
-        This function transforms each row of a matrix by adding one extra dimension
-        giving equal norms. Cosine of the augmented vector is now proportional to the
-        dot product. As a result, an angular nearest neighbours search will return top
-        related items of the inner product.
+        Transforms each row of a matrix by adding an extra dimension giving equal norms.
+        Cosine of the augmented vector is now proportional to the inner product.
+        As a result, an angular nearest neighbours search will find vectors that
+        result in the highest inner product.
 
-        This technique was introduced in the paper: "Speeding Up the Xbox Recommender
+        This approach was introduced in the paper: "Speeding Up the Xbox Recommender
         System Using a Euclidean Transformation for Inner-Product Spaces"
         https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/XboxInnerProduct.pdf
 
         Args:
-            vectors (np.ndarray): (embedding) vectors.
+            vectors: (Embedding) vectors.
 
         Returns:
-            np.ndarray: Augmented (embedding) vectors.
+            augmented_vectors: Augmented (embedding) vectors.
         """
         logger.info(
-            "Augmenting item vectors with Euclidean transformation for recommendation"
+            "Augmenting vectors with Euclidean transformation for recommendation"
         )
         vector_norms = np.linalg.norm(vectors, axis=1)
         max_vector_norm = vector_norms.max()
@@ -107,17 +107,25 @@ class quicksim:
     def recommend(
         self, user_vectors: np.ndarray, item_vectors: np.ndarray, n_vectors: int = 10
     ) -> np.ndarray:
-        """[summary]
+        """Approximate maximum inner product search for fast recommendations.
+
+        After running an embedding algorithm, every user/item can be represented
+        as a vector in n-dimensional space. Annoy increases the speed of recommendation
+        and similar user/item search for large data-sets at low memory cost. Based on an
+        implementation of Approximate Nearest Neighbours search. The speed-up comes at
+        the cost of slighly reduced precision. In a typical recommendation setting this
+        is not a problem because a large amount of top items are relevant, regardless of
+        negligible differences in estimated score.
 
         Args:
-            user_vectors (np.ndarray): [description]
-            item_vectors (np.ndarray): [description]
-            n_vectors (int, optional): [description]. Defaults to 10.
+            user_vectors: User embedding vectors.
+            item_vectors: Item embedding vectors.
+            n_trees: Number of trees to build for searching the index.
+            n_vectors: Number of items to recommend for each input vector.
 
         Returns:
-            np.ndarray: [description]
+            recommendations: Top N item recommendations for each user.
         """
-
         logger.info("Augmenting user vectors with extra dimension for recommendation")
         extra_dimension = np.zeros((user_vectors.shape[0], 1))
         augmented_user_vectors = np.concatenate((user_vectors, extra_dimension), axis=1)
