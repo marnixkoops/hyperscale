@@ -45,7 +45,10 @@ class quicksim:
     def find_most_similar(
         self, vector_index: AnnoyIndex, vector_id: int = None, n_vectors: int = 10,
     ) -> List:
-        """[summary]
+        """Finds the most similar vectors fast using Approximate Nearest Neighbors.
+
+        Searches most similar for a vector in the index if a vector_id is supplied.
+        If not, finds the top N most similar vectors for each vector in the index.
 
         Args:
             vector_index: Built vector index.
@@ -76,10 +79,10 @@ class quicksim:
     def augment_vectors(self, vectors: np.ndarray) -> np.ndarray:
         """Augments vectors for fast (aproximate) maximum inner product search.
 
-        Transforms each row of a matrix by adding an extra dimension giving equal norms.
-        Cosine of the augmented vector is now proportional to the inner product.
-        As a result, an angular nearest neighbours search will find vectors that
-        result in the highest inner product.
+        Transforms each row of a vector matrix by adding an extra dimension giving
+        equal norms. The cosine of the augmented vector is now proportional to the
+        inner product. As a result, an angular nearest neighbours search will find
+        vectors that result in the highest inner product.
 
         This approach was introduced in the paper: "Speeding Up the Xbox Recommender
         System Using a Euclidean Transformation for Inner-Product Spaces"
@@ -109,13 +112,15 @@ class quicksim:
     ) -> np.ndarray:
         """Approximate maximum inner product search for fast recommendations.
 
-        After running an embedding algorithm, every user/item can be represented
-        as a vector in n-dimensional space. Annoy increases the speed of recommendation
-        and similar user/item search for large data-sets at low memory cost. Based on an
-        implementation of Approximate Nearest Neighbours search. The speed-up comes at
-        the cost of slighly reduced precision. In a typical recommendation setting this
-        is not a problem because a large amount of top items are relevant, regardless of
-        negligible differences in estimated score.
+        After running an algorithm like Matrix Factorization, every user/item can be
+        represented as an (embedding) vector in n-dimensional space. We increases the
+        speed of recommendation and similar user/item search for large data-sets at low
+        memory cost.
+
+        Uses an implementation of Approximate Nearest Neighbours search.
+        The massive speed-up comes at the cost of slighly reduced precision. In a
+        typical recommendation setting this is not a problem because a large amount of
+        top items are relevant, regardless of negligible differences in estimated score.
 
         Args:
             user_vectors: User embedding vectors.

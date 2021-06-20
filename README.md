@@ -1,6 +1,6 @@
 
 
-**⚡ Lightning fast recommendations and similarity search**
+**⚡ Lightning fast recommendations and vector similarity search**
 
 `turboquery` solves the main challenge in real world recommender systems: querying recommendations fast at scale.
 
@@ -14,7 +14,7 @@ When the number of items is large, scoring and ranking all of them is infeasible
 $ pip install turboquery
 ```
 
-## 🚀 Quick Start
+## 🚀 Quick start
 
 ```python
 import turboquery
