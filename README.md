@@ -4,8 +4,9 @@
 
 `turboquery` solves the main challenge in real world recommender systems: querying recommendations fast at scale.
 
-When the number of items is large, scoring and ranking all of them is infeasible. `turboquery` implements algorithms to leverage fast Approximate Nearest Neighbors (ANN) in high-dimensional space for similarity and maximum inner-product search (recommendation). This approach can produce sub 50 µs response-times across millions of items.
+When the number of items is large, scoring and ranking all of them is infeasible. `turboquery` implements algorithms to leverage fast Approximate Nearest Neighbors (ANN) in high-dimensional space for similarity search and maximum inner-product search (recommendation). This method can produce microsecond response-times across millions of items.
 
+Vector models are widely used across fields: NLP, recommender systems, computer vision, and more.
 `turboquery` can be used in synergy with any (embedding) vector-based machine learning model. For example, to quickly find the most similar embeddings learned by a Neural Network or to generate recommendations for users based on any type of Matrix Factorization model.
 
 ## ✨ Install
