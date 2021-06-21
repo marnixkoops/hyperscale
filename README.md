@@ -69,12 +69,17 @@ xxx
 xxx
 </details>
 
+###### [`tensorflow`](https://github.com/tensorflow/tensorflow)
+<details><summary><b>🔍 show code<br> </b></summary>
+xxx
+</details>
+
 ###### [`pytorch`](https://github.com/pytorch/pytorch)
 <details><summary><b>🔍 show code</b></summary>
 xxx
 </details>
 
-###### [`tensorflow`](https://github.com/tensorflow/tensorflow)
+###### [`umap-learn`](https://github.com/lmcinnes/umap)
 <details><summary><b>🔍 show code<br> </b></summary>
 xxx
 </details>
