@@ -1,5 +1,5 @@
 # ⚡ hyperscale
-**Fast recommendations and vector similarity search**
+**Fast recommendations and similarity search**
 
 ## 👋 Hello
 
