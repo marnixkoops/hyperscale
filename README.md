@@ -26,18 +26,18 @@ item_vectors = np.random.rand(int(1e6), 32)
 user_vectors = np.random.rand(int(1e4), 32)
 
 hyperscale = hyperscale()
-recommendations = hyperscale.recommend(user_vectors, vectors)
+recommendations = hyperscale.recommend(user_vectors, item_vectors)
 
-vector_index = hyperscale.build_vector_index(vectors)
+vector_index = hyperscale.build_vector_index(item_vectors)
 most_similar = hyperscale.find_most_similar(vector_index)
 ```
 
-## ✨ Example usage
+## ✨ Examples
 
 It is easy to scale up recommendation or similarity search after training a model with any popular library. Simply extract the embedding vectors and feed them to `hyperscale`. See example synergies below.
 
 ###### [`sklearn`](https://github.com/scikit-learn/scikit-learn)
-<details><summary><b>🔍 show code<br> </b></summary>
+<details><summary><b>🔍 show code</b></summary>
 
 ```python
 import hyperscale
@@ -53,22 +53,22 @@ recommendations = hyperscale.recommend(user_vectors, vectors)
 </details>
 
 ###### [`surprise`](https://github.com/NicolasHug/Surprise)
-<details><summary><b>🔍 show code<br> </b></summary>
+<details><summary><b>🔍 show code</b></summary>
 xxx
 </details>
 
 ###### [`LightFM`](https://github.com/lyst/lightfm)
-<details><summary><b>🔍 show code<br> </b></summary>
+<details><summary><b>🔍 show code</b></summary>
 xxx
 </details>
 
 ###### [`implicit`](https://github.com/benfred/implicit)
-<details><summary><b>🔍 show code<br> </b></summary>
+<details><summary><b>🔍 show code</b></summary>
 xxx
 </details>
 
 ###### [`pytorch`](https://github.com/pytorch/pytorch)
-<details><summary><b>🔍 show code<br> </b></summary>
+<details><summary><b>🔍 show code</b></summary>
 xxx
 </details>
 
