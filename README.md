@@ -4,9 +4,9 @@
 
 `zift` solves the main challenge in real world recommender systems: querying recommendations fast at scale.
 
-When the number of items is large, scoring and ranking all of them is infeasible. `zift` implements algorithms to leverage fast Approximate Nearest Neighbors (ANN) in high-dimensional space for similarity search and maximum inner-product search (recommendation). This method can produce microsecond response-times across millions of items.
+When the number of items is large, scoring and ranking all of them is infeasible. `zift` implements algorithms to leverage fast Approximate Nearest Neighbors (ANN) in high-dimensional space for similarity search and maximum inner-product search (recommendation). This method is computationally efficient and produces microsecond response-times across millions of items.
 
-Furthermore, vector models are widely used across fields: NLP, recommender systems, computer vision, and more. `zift` can be used in synergy with any (embedding) vector-based machine learning model. For example, to quickly find the most similar embeddings learned by a Neural Network or to generate recommendations for users based on any type of Matrix Factorization model.
+Furthermore, vector models are widely used in NLP, recommender systems, computer vision and other fields. `zift` can be used in synergy with any (embedding) vector-based machine learning model. For example, to quickly find the most similar embeddings learned by a Neural Network or to generate recommendations for users based on any type of Matrix Factorization model. Additionally, finding similar vectors can be effectively applied for personalizing content, upsell, cross-sell and other use-cases.
 
 ## ✨ Install
 
