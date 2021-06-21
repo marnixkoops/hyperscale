@@ -1,6 +1,6 @@
 ![](hyperscale.png)
 
-#### Fast recommendations and vector similarity search at scale
+### Fast recommendations and vector similarity search at scale
 
 `hyperscale` solves the main challenge in real world recommender systems; querying recommendations fast at scale. It offers a simple Python API and leverages C++ under the hood.
 
