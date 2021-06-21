@@ -55,32 +55,32 @@ recommendations = hyperscale.recommend(user_vectors, vectors)
 </details>
 
 ###### [`surprise`](https://github.com/NicolasHug/Surprise)
-<details><summary><b>🔍 show code</b></summary>
+<details><summary><b>show code</b></summary>
 xxx
 </details>
 
 ###### [`LightFM`](https://github.com/lyst/lightfm)
-<details><summary><b>🔍 show code</b></summary>
+<details><summary><b>show code</b></summary>
 xxx
 </details>
 
 ###### [`implicit`](https://github.com/benfred/implicit)
-<details><summary><b>🔍 show code</b></summary>
+<details><summary><b>show code</b></summary>
 xxx
 </details>
 
 ###### [`tensorflow`](https://github.com/tensorflow/tensorflow)
-<details><summary><b>🔍 show code<br> </b></summary>
+<details><summary><b>show code<br> </b></summary>
 xxx
 </details>
 
 ###### [`pytorch`](https://github.com/pytorch/pytorch)
-<details><summary><b>🔍 show code</b></summary>
+<details><summary><b>show code</b></summary>
 xxx
 </details>
 
 ###### [`umap-learn`](https://github.com/lmcinnes/umap)
-<details><summary><b>🔍 show code<br> </b></summary>
+<details><summary><b>show code<br> </b></summary>
 xxx
 </details>
 
