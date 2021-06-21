@@ -36,7 +36,7 @@ most_similar = hyperscale.find_most_similar(vector_index)
 
 It is easy to scale up recommendation or similarity search after training a model with any popular library. Simply extract the embedding vectors and feed them to `hyperscale`. See example synergies below.
 
-#### [`sklearn`](https://github.com/scikit-learn/scikit-learn)
+###### [`sklearn`](https://github.com/scikit-learn/scikit-learn)
 <details><summary><b>🔍 Show code snippet<br> </b></summary>
 
 ```python
@@ -52,27 +52,27 @@ recommendations = hyperscale.recommend(user_vectors, vectors)
 
 </details>
 
-[`surprise`](https://github.com/NicolasHug/Surprise)
+###### [`surprise`](https://github.com/NicolasHug/Surprise)
 <details><summary><b>🔍 Show code snippet<br> </b></summary>
 xxx
 </details>
 
-[`LightFM`](https://github.com/lyst/lightfm)
+###### [`LightFM`](https://github.com/lyst/lightfm)
 <details><summary><b>🔍 Show code snippet<br> </b></summary>
 xxx
 </details>
 
-[`implicit`](https://github.com/benfred/implicit)
+###### [`implicit`](https://github.com/benfred/implicit)
 <details><summary><b>🔍 Show code snippet<br> </b></summary>
 xxx
 </details>
 
-[`pytorch`](https://github.com/pytorch/pytorch)
+###### [`pytorch`](https://github.com/pytorch/pytorch)
 <details><summary><b>🔍 Show code snippet<br> </b></summary>
 xxx
 </details>
 
-[`tensorflow`](https://github.com/tensorflow/tensorflow)
+###### [`tensorflow`](https://github.com/tensorflow/tensorflow)
 <details><summary><b>🔍 Show code snippet<br> </b></summary>
 xxx
 </details>
