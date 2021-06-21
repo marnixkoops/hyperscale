@@ -1,4 +1,4 @@
-# 💨 hyperscale
+# ⚡ hyperscale
 **Fast recommendations and vector similarity search**
 
 ## 👋 Hello
