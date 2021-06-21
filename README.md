@@ -1,6 +1,5 @@
-![](hyperscale.png)
-
-### Fast recommendations and vector similarity search at scale
+# 💨 hyperscale
+**Fast recommendations and vector similarity search**
 
 ## 👋 Hello
 
