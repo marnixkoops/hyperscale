@@ -12,8 +12,8 @@ Similar vector search can also be effectively applied to increase customer exper
 
 ## ✨ Install
 
-```bash
-$ pip install hyperscale
+```console
+$ pip3 install hyperscale
 ```
 
 ## 🚀 Quick start
