@@ -83,6 +83,11 @@ xxx
 xxx
 </details>
 
+###### [`pyspark` collaborative filtering](https://github.com/apache/spark)
+<details><summary><b>show code<br> </b></summary>
+xxx
+</details>
+
 ## 🖇️ References
 
 * Bachrach, Yoram, et al. ["Speeding up the Xbox Recommender System using a Euclidean transformation for inner-product spaces."](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/XboxInnerProduct.pdf) *Proceedings of the 8th ACM Conference on Recommender systems. 2014.*
