@@ -12,7 +12,7 @@ Similar vector search can also be effectively applied to increase customer exper
 
 ## ✨ Install
 
-```shell
+```console
 $ pip3 install hyperscale
 ```
 
