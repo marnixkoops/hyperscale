@@ -59,7 +59,7 @@ recommendations = hyperscale.recommend(user_vectors, vectors)
 xxx
 </details>
 
-###### [`LightFM`](https://github.com/lyst/lightfm)
+###### [`lightfm`](https://github.com/lyst/lightfm)
 <details><summary><b>show code</b></summary>
 xxx
 </details>
