@@ -3,7 +3,7 @@
 
 Lightning fast (embedding) vector similarity search for recommendation.
 
-[//]: <> (quicksim / hypervec / fastrec / hypervector / turboquery / speedsearch / hypersift / blaze / topsearch)
+[//]: <> (quicksim / hypervec / fastrec / hypervector / turboquery / speedsearch / hypersift / blaze / topsearch / scalerec / scalesearch / turboscale)
 
 
 /
