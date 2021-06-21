@@ -2,6 +2,8 @@
 
 ### Fast recommendations and vector similarity search at scale
 
+## 👋 Hello
+
 `hyperscale` solves the main challenge in real world recommender systems; querying recommendations fast at scale. It offers a simple Python API and leverages C++ under the hood.
 
 When the number of items is large, scoring and ranking all combinations is infeasible. `hyperscale` implements fast Approximate Nearest Neighbors (ANN) algorithms in high-dimensional space for vector similarity search and maximum inner-product search (recommendation). This method is computationally efficient and produces microsecond response-times across millions of items.
