@@ -7,14 +7,14 @@ from annoy import AnnoyIndex
 from tqdm import trange
 
 logger = logging.basicConfig(stream=sys.stdout, level=logging.INFO,)
-logger = logging.getLogger("⚡quicksim")
+logger = logging.getLogger("⚡hyperscale")
 
 
-class quicksim:
+class hyperscale:
     def build_vector_index(
         self, vectors: np.ndarray, n_trees: int = 5, save_index: bool = False
     ) -> AnnoyIndex:
-        """Builds a vector index for fast (approximate) nearest neighbor search.
+        """Builds a vector index for Approximate Nearest Neighbor search.
 
         More trees is slower but gives higher precision when querying.
         This implementation is powered by https://github.com/spotify/annoy.
@@ -45,7 +45,7 @@ class quicksim:
     def find_most_similar(
         self, vector_index: AnnoyIndex, vector_id: int = None, n_vectors: int = 10,
     ) -> List:
-        """Finds the most similar vectors fast using Approximate Nearest Neighbors.
+        """Finds the most similar vectors using Approximate Nearest Neighbors.
 
         Searches most similar for a vector in the index if a vector_id is supplied.
         If not, finds the top N most similar vectors for each vector in the index.
@@ -150,16 +150,5 @@ class quicksim:
         return recommendations
 
     def explain(self):
+        """To be implemented."""
         pass
-
-
-item_vectors = np.random.rand(10000, 16)
-user_vectors = np.random.rand(1000, 16)
-
-quicksim = quicksim()
-
-recommendations = quicksim.recommend(user_vectors, item_vectors)
-
-vector_index = quicksim.build_vector_index(item_vectors)
-most_similar = quicksim.find_most_similar(vector_index)
-explanation = quicksim.explain()

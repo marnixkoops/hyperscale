@@ -41,51 +41,108 @@ It is easy to scale up recommendation or similarity search after training a mode
 <details><summary><b>show code</b></summary>
 
 ```python
-import hyperscale
-import numpy as np
+from hyperscale import hyperscale
+from sklearn.decomposition import NMF
 
-item_vectors = np.random.rand(int(1e6), 32)
-user_vectors = np.random.rand(int(1e4), 32)
+matrix = np.random.rand(1000, 1000)
 
-hyperscale = hyperscale()
-recommendations = hyperscale.recommend(user_vectors, vectors)
+model = NMF(n_components=16)
+model.fit(matrix)
+
+user_vectors = model.transform(matrix)
+item_vectors = model.components_.T
+
+recommendations = hyperscale.recommend(user_vectors, item_vectors)
+vector_index = hyperscale.build_vector_index(item_vectors)
+most_similar = hyperscale.find_most_similar(vector_index)
 ```
 
 </details>
 
 ###### [`surprise`](https://github.com/NicolasHug/Surprise)
 <details><summary><b>show code</b></summary>
-xxx
+
+```python
+from hyperscale import hyperscale
+from surprise import SVD, Dataset
+
+data = Dataset.load_builtin("ml-100k")
+data = data.build_full_trainset()
+
+model = SVD(n_factors=16)
+model.fit(data)
+
+user_vectors = model.pu
+item_vectors = model.qi
+
+recommendations = hyperscale.recommend(user_vectors, item_vectors)
+vector_index = hyperscale.build_vector_index(item_vectors)
+most_similar = hyperscale.find_most_similar(vector_index)
+```
+
 </details>
 
 ###### [`lightfm`](https://github.com/lyst/lightfm)
 <details><summary><b>show code</b></summary>
-xxx
+
+```python
+from hyperscale import hyperscale
+from lightfm import LightFM
+from lightfm.datasets import fetch_movielens
+
+data = fetch_movielens(min_rating=5.0)
+
+model = LightFM(loss="warp")
+model.fit(data["train"])
+
+_, user_vectors = model.get_user_representations(features=None)
+_, item_vectors = model.get_item_representations(features=None)
+
+recommendations = hyperscale.recommend(user_vectors, item_vectors)
+vector_index = hyperscale.build_vector_index(item_vectors)
+most_similar = hyperscale.find_most_similar(vector_index)
+```
+
 </details>
 
 ###### [`implicit`](https://github.com/benfred/implicit)
 <details><summary><b>show code</b></summary>
-xxx
+
+```python
+from hyperscale import hyperscale
+from implicit.als import AlternatingLeastSquares
+from scipy import sparse
+
+matrix = np.random.rand(1000, 1000)
+sparse_matrix = sparse.csr_matrix(matrix)
+
+model = AlternatingLeastSquares(factors=16)
+model.fit(sparse_matrix)
+
+user_vectors = model.user_factors
+item_vectors = model.item_factors
+
+recommendations = hyperscale.recommend(user_vectors, item_vectors)
+vector_index = hyperscale.build_vector_index(item_vectors)
+most_similar = hyperscale.find_most_similar(vector_index)
+```
+
 </details>
 
 ###### [`tensorflow`](https://github.com/tensorflow/tensorflow)
 <details><summary><b>show code<br> </b></summary>
-xxx
 </details>
 
 ###### [`pytorch`](https://github.com/pytorch/pytorch)
 <details><summary><b>show code</b></summary>
-xxx
 </details>
 
 ###### [`umap-learn`](https://github.com/lmcinnes/umap)
 <details><summary><b>show code<br> </b></summary>
-xxx
 </details>
 
 ###### [`pyspark` collaborative filtering](https://github.com/apache/spark)
 <details><summary><b>show code<br> </b></summary>
-xxx
 </details>
 
 ## 🖇️ References

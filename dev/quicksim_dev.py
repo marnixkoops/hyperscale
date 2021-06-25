@@ -1,17 +1,14 @@
 import logging
 import sys
-from typing import List
 
-import nmslib
+# import nmslib
 import numpy as np
-import pandas as pd
-import scipy.sparse
-from annoy import AnnoyIndex
-from sklearn.preprocessing import normalize
-from tqdm import trange
+import sklearn
+
+from quicksim import hyperscale
 
 logger = logging.basicConfig(stream=sys.stdout, level=logging.INFO,)
-logger = logging.getLogger("⚡quicksim")
+logger = logging.getLogger("hyperscale")
 
 ######################
 
@@ -47,152 +44,6 @@ logger = logging.getLogger("⚡quicksim")
 # ## %%timeit
 # jaccard_similarities(matrix)
 
-
-######################
-
-
-def augment_vectors(vectors: np.ndarray) -> np.ndarray:
-    """Augments vectors for fast (aproximate) maximum inner product search.
-
-    This function transforms each row of a matrix by adding one extra dimension giving
-    equal norms. Cosine of the augmented vector is now proportional to the dot product.
-    As a result, an angular nearest neighbours search will return top related items of
-    the inner product.
-
-    This technique was introduced in the paper: "Speeding Up the Xbox Recommender System
-    Using a Euclidean Transformation for Inner-Product Spaces"
-    https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/XboxInnerProduct.pdf
-
-    Args:
-        vectors (np.ndarray): (embedding) vectors.
-
-    Returns:
-        np.ndarray: Augmented (embedding) vectors.
-    """
-    logger.info("Augmenting vectors with Euclidean transformation")
-    vector_norms = np.linalg.norm(vectors, axis=1)
-    max_vector_norm = vector_norms.max()
-
-    extra_dimension = np.sqrt(max_vector_norm ** 2 - vector_norms ** 2)
-    augmented_vectors = np.append(
-        vectors, extra_dimension.reshape(vector_norms.shape[0], 1), axis=1
-    )
-
-    return augmented_vectors
-
-
-def build_vector_index(
-    vectors: np.ndarray, n_trees: int = 5, save_index: bool = False
-) -> AnnoyIndex:
-    """Builds a vector index for fast (approximate) nearest neighbor search.
-
-    More trees is slower but gives higher precision when querying.
-    This implementation is powered by https://github.com/spotify/annoy.
-
-    Args:
-        vectors (np.ndarray): [description]
-        n_trees (int, optional): [description]. Defaults to 5.
-        save_index (bool, optional): [description]. Defaults to False.
-
-    Returns:
-        AnnoyIndex: Built vector index.
-    """
-    logger.info(f"Building vector index with {n_trees} trees")
-    n_dimensions = vectors.shape[1]
-    vector_index = AnnoyIndex(n_dimensions, metric="angular")
-
-    for item in trange(vectors.shape[0]):
-        vector = vectors[item]
-        vector_index.add_item(item, vector)
-
-    vector_index.build(n_trees=n_trees)
-
-    if save_index:
-        vector_index.save("vector_index.ann")
-
-    return vector_index
-
-
-def find_most_similar(
-    vector_index: AnnoyIndex, vector_id: int = None, n_vectors: int = 10,
-) -> List:
-    """[summary]
-
-    Args:
-        vector_index (AnnoyIndex): [description]
-        vector_id (int, optional): [description]. Defaults to None.
-        n_vectors (int, optional): [description]. Defaults to 10.
-
-    Returns:
-        List: [description]
-    """
-    if vector_id is not None:
-        logger.info(f"Querying most similar vectors for vector id {vector_id}")
-        most_similar_vectors = vector_index.get_nns_by_item(vector_id, n_vectors)
-    else:
-        n_vectors_in_index = vector_index.get_n_items()
-        most_similar_vectors = np.empty([n_vectors_in_index, n_vectors], dtype=np.int32)
-        logger.info(
-            f"Querying most similar vectors for all {n_vectors_in_index} vectors"
-        )
-        for vector in trange(n_vectors_in_index):
-            most_similar_vectors[vector] = vector_index.get_nns_by_item(
-                vector, n_vectors
-            )
-
-    return most_similar_vectors
-
-
-def recommend(
-    user_vectors: np.ndarray, item_vectors: np.ndarray, n_vectors: int = 10
-) -> np.ndarray:
-    """[summary]
-
-    Args:
-        user_vectors (np.ndarray): [description]
-        item_vectors (np.ndarray): [description]
-        n_vectors (int, optional): [description]. Defaults to 10.
-
-    Returns:
-        np.ndarray: [description]
-    """
-
-    logger.info("Augmenting user vectors")
-    extra_dimension = np.zeros((user_vectors.shape[0], 1))
-    augmented_user_vectors = np.concatenate((user_vectors, extra_dimension), axis=1)
-
-    augmented_item_vectors = augment_vectors(vectors)
-    vector_index = build_vector_index(augmented_item_vectors, n_trees=10)
-
-    n_users = augmented_user_vectors.shape[0]
-    recommendations = np.empty([n_users, n_vectors], dtype=np.int32)
-    logger.info(f"Searching top {n_vectors} items for each user")
-    for user in trange(n_users):
-        user_vector = augmented_user_vectors[user]
-        recommendations[user] = vector_index.get_nns_by_vector(user_vector, n_vectors)
-
-    return recommendations
-
-
-########################################################################
-
-vectors = np.random.rand(int(1e6), 16)
-user_vectors = np.random.rand(int(1e4), 16)
-
-vector_index = build_vector_index(vectors)
-
-recommendations = recommend(user_vectors, vectors)
-find_most_similar(vector_index, vector_id=None)
-
-
-#################
-
-from implicit.als import AlternatingLeastSquares
-from implicit.approximate_als import AnnoyAlternatingLeastSquares
-
-annoy_model = AnnoyAlternatingLeastSquares(factors=16, n_trees=10)
-
-
 #################
 
 """
@@ -207,8 +58,9 @@ annoy_model = AnnoyAlternatingLeastSquares(factors=16, n_trees=10)
 # indexes over a large dataset was slower. This becomes a problem if you have to
 # rebuild your index frequently because of fast moving product catalogues etc.
 # nms_member_idx = nmslib.init(method="hnsw", space="cosinesimil")
-# nms_member_idx.addDataPointBatch(norm_data)
+# nms_member_idx.addDataPointBatch(user_vectors)
 # nms_member_idx.createIndex(print_progress=True)
+
 
 ########################################################################
 
@@ -225,3 +77,70 @@ annoy_model = AnnoyAlternatingLeastSquares(factors=16, n_trees=10)
 #     names=["movieId", "title", "genres"],
 #     engine="python",
 # )
+
+########################################################################
+from hyperscale import hyperscale
+from sklearn.decomposition import NMF
+
+matrix = np.random.rand(1000, 1000)
+
+model = NMF(n_components=16)
+model.fit(matrix)
+
+user_vectors = model.transform(matrix)
+item_vectors = model.components_.T
+
+recommendations = hyperscale.recommend(user_vectors, item_vectors)
+vector_index = hyperscale.build_vector_index(item_vectors)
+most_similar = hyperscale.find_most_similar(vector_index)
+
+########################################################################
+from implicit.als import AlternatingLeastSquares
+from scipy import sparse
+
+matrix = np.random.rand(1000, 1000)
+sparse_matrix = sparse.csr_matrix(matrix)
+
+model = AlternatingLeastSquares(factors=16)
+model.fit(sparse_matrix)
+
+user_vectors = model.user_factors
+item_vectors = model.item_factors
+
+recommendations = hyperscale.recommend(user_vectors, item_vectors)
+vector_index = hyperscale.build_vector_index(item_vectors)
+most_similar = hyperscale.find_most_similar(vector_index)
+
+########################################################################
+from surprise import SVD, Dataset
+
+data = Dataset.load_builtin("ml-100k")
+data = data.build_full_trainset()
+
+model = SVD(n_factors=16)
+model.fit(data)
+
+user_vectors = model.pu
+item_vectors = model.qi
+
+recommendations = hyperscale.recommend(user_vectors, item_vectors)
+vector_index = hyperscale.build_vector_index(item_vectors)
+most_similar = hyperscale.find_most_similar(vector_index)
+
+########################################################################
+from lightfm import LightFM
+from lightfm.datasets import fetch_movielens
+
+data = fetch_movielens(min_rating=5.0)
+
+model = LightFM(loss="warp")
+model.fit(data["train"])
+
+_, user_vectors = model.get_user_representations(features=None)
+_, item_vectors = model.get_item_representations(features=None)
+
+recommendations = hyperscale.recommend(user_vectors, item_vectors)
+vector_index = hyperscale.build_vector_index(item_vectors)
+most_similar = hyperscale.find_most_similar(vector_index)
+
+########################################################################
