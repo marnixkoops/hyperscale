@@ -11,7 +11,7 @@ Furthermore, vector models are widely used in NLP, recommender systems, computer
 
 Similar vector search can also be effectively applied to increase customer experience through personalization of content, product upsell, cross-sell and other use-cases.
 
-## ✨ Install
+## ❤️ Install
 
 ```console
 $ pip3 install hyperscale
