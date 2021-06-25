@@ -20,13 +20,12 @@ $ pip3 install hyperscale
 ## 🚀 Quick start
 
 ```python
-import hyperscale
+from hyperscale import hyperscale
 import numpy as np
 
 item_vectors = np.random.rand(int(1e6), 32)
 user_vectors = np.random.rand(int(1e4), 32)
 
-hyperscale = hyperscale()
 recommendations = hyperscale.recommend(user_vectors, item_vectors)
 
 vector_index = hyperscale.build_vector_index(item_vectors)
@@ -129,21 +128,7 @@ most_similar = hyperscale.find_most_similar(vector_index)
 
 </details>
 
-###### [`tensorflow`](https://github.com/tensorflow/tensorflow)
-<details><summary><b>show code<br> </b></summary>
-</details>
 
-###### [`pytorch`](https://github.com/pytorch/pytorch)
-<details><summary><b>show code</b></summary>
-</details>
-
-###### [`umap-learn`](https://github.com/lmcinnes/umap)
-<details><summary><b>show code<br> </b></summary>
-</details>
-
-###### [`pyspark` collaborative filtering](https://github.com/apache/spark)
-<details><summary><b>show code<br> </b></summary>
-</details>
 
 ## 🖇️ References
 
