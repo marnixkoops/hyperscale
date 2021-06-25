@@ -11,7 +11,7 @@ Furthermore, vector models are widely used in NLP, recommender systems, computer
 
 Similar vector search can also be effectively applied to increase customer experience through personalization of content, product upsell, cross-sell and other use-cases.
 
-## ❤️ Install
+## ✨ Install
 
 ```console
 $ pip3 install hyperscale
@@ -32,7 +32,7 @@ vector_index = hyperscale.build_vector_index(item_vectors)
 most_similar = hyperscale.find_most_similar(vector_index)
 ```
 
-## ✨ Examples
+## 🪄 Examples
 
 It is easy to scale up recommendation or similarity search after training a model with any popular library. Simply extract the embedding vectors and feed them to `hyperscale`. See examples below.
 
