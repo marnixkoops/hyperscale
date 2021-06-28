@@ -5,7 +5,7 @@
 
 `hyperscale` solves the main bottleneck in recommender systems; querying items fast at scale.
 
-When the number of items is large, scoring and ranking all combinations is computationally expensive. `hyperscale` implements fast Approximate Nearest Neighbors (ANN) algorithms in high-dimensional space for vector similarity search and maximum inner-product search (recommendation). This method is computationally efficient and able to produce microsecond response-times across millions of items.
+When the number of items is large, scoring and ranking all combinations is computationally expensive. `hyperscale` implements fast Approximate Nearest Neighbors (ANN) algorithms in high-dimensional space for (embedding) vector similarity search and maximum inner-product search (recommendation). This method is computationally efficient and able to produce microsecond response-times across millions of items.
 
 Vector search can be effectively applied to increase customer experience through personalization of content, product upsell, cross-sell and other use-cases.
 Moreover, vector models are also widely used in NLP, computer vision and other fields. `hyperscale` can be used in combination with any (embedding) vector-based model. For example, to quickly find the most similar embeddings learned by a Neural Network like `word2vec` or to generate recommendations for users based on any type of Collaborative Filtering model like Matrix Factorization.
@@ -126,6 +126,15 @@ item_vectors = model.item_factors
 recommendations = hyperscale.recommend(user_vectors, item_vectors)
 vector_index = hyperscale.build_vector_index(item_vectors)
 most_similar = hyperscale.find_most_similar(vector_index)
+```
+
+</details>
+
+###### [`gensim`](https://github.com/RaRe-Technologies/gensim)
+<details><summary><b>show code</b></summary>
+
+```python
+TBA
 ```
 
 </details>
