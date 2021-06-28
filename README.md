@@ -3,13 +3,13 @@
 
 ## 👋 Hello
 
-`hyperscale` solves the main challenge in real world recommender systems; querying recommendations fast at scale. It offers a simple Python API and leverages C++ under the hood.
+`hyperscale` solves the main challenge in recommender systems; querying items fast at scale.
 
-When the number of items is large, scoring and ranking all combinations is computationally expensive. `hyperscale` implements fast Approximate Nearest Neighbors (ANN) algorithms in high-dimensional space for vector similarity search and maximum inner-product search (recommendation). This method is computationally efficient and produces microsecond response-times across millions of items.
+When the number of items is large, scoring and ranking all combinations is computationally expensive. `hyperscale` implements fast Approximate Nearest Neighbors (ANN) algorithms in high-dimensional space for vector similarity search and maximum inner-product search (recommendation). This method is computationally efficient and able to produce microsecond response-times across millions of items.
 
-Furthermore, vector models are widely used in NLP, recommender systems, computer vision and other fields. `hyperscale` can be used in combination with any (embedding) vector-based model. For example, to quickly find the most similar embeddings learned by a Neural Network or to generate recommendations for users based on any type of Collaborative Filtering model such as Matrix Factorization.
+Moreover, vector models are also widely used in NLP, computer vision and other fields. `hyperscale` can be used in combination with any (embedding) vector-based model. For example, to quickly find the most similar embeddings learned by a Neural Network or to generate recommendations for users based on any type of Collaborative Filtering model like Matrix Factorization.
 
-Similar vector search can also be effectively applied to increase customer experience through personalization of content, product upsell, cross-sell and other use-cases.
+Vector search can also be effectively applied to increase customer experience through personalization of content, product upsell, cross-sell and other use-cases.
 
 ## ✨ Install
 
@@ -18,6 +18,8 @@ $ pip3 install hyperscale
 ```
 
 ## 🚀 Quick start
+
+`hyperscale` offers a simple Python API. While leveraging C++ under the hood, it avoids engineering complexity to get up and running.
 
 ```python
 from hyperscale import hyperscale
@@ -34,7 +36,7 @@ most_similar = hyperscale.find_most_similar(vector_index)
 
 ## 🪄 Examples
 
-It is easy to scale up recommendation or similarity search after training a model with any popular library. Simply extract the embedding vectors and feed them to `hyperscale`. See examples below.
+It is easy to scale up personalized recommendations or vector similarity search after training a model with any popular library. Simply extract the embedding vectors and feed them to `hyperscale`. Some examples are shown below.
 
 ###### [`sklearn`](https://github.com/scikit-learn/scikit-learn)
 <details><summary><b>show code</b></summary>
