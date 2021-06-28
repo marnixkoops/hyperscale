@@ -36,7 +36,7 @@ most_similar = hyperscale.find_most_similar(vector_index)
 
 ## 🪄 Examples
 
-It is easy to scale up personalized recommendations or vector similarity search after training a model with any popular library. Simply extract the embedding vectors and feed them to `hyperscale`. Some examples are shown below.
+It is easy to scale up recommendation or vector similarity search after training a model using any popular library. Simply extract the embedding vectors and feed them to `hyperscale`. Some examples are shown below.
 
 ###### [`sklearn`](https://github.com/scikit-learn/scikit-learn)
 <details><summary><b>show code</b></summary>
