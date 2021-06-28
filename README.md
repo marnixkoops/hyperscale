@@ -19,7 +19,7 @@ $ pip3 install hyperscale
 
 ## 🚀 Quickstart
 
-`hyperscale` offers a simple Python API. While leveraging C++ under the hood for speed and scalability, it avoids engineering complexity to get up and running.
+`hyperscale` offers a simple and lightweight Python API. While leveraging C++ under the hood for speed and scalability, it avoids engineering complexity to get up and running.
 
 ```python
 from hyperscale import hyperscale
