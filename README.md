@@ -134,7 +134,17 @@ most_similar = hyperscale.find_most_similar(vector_index)
 <details><summary><b>show code</b></summary>
 
 ```python
-TBA
+from hyperscale import hyperscale
+from gensim.models import Word2Vec
+from gensim.test.utils import common_texts
+
+model = Word2Vec(sentences=common_texts, vector_size=16, window=5, min_count=1)
+gensim_vectors = model.wv
+item_vectors = gensim_vectors.get_normed_vectors()
+
+hyperscale = hyperscale()
+vector_index = hyperscale.build_vector_index(item_vectors)
+most_similar = hyperscale.find_most_similar(vector_index)
 ```
 
 </details>
