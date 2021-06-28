@@ -47,8 +47,9 @@ class hyperscale:
     ) -> List:
         """Finds the most similar vectors using Approximate Nearest Neighbors.
 
-        Searches most similar for a vector in the index if a vector_id is supplied.
-        If not, finds the top N most similar vectors for each vector in the index.
+        Given a vector id, searches most similar items in the index for that vector.
+        If no vector id is supplied, finds the top N most similar vectors for each
+        vector that is included in the index.
 
         Args:
             vector_index: Built vector index.

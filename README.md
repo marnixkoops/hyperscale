@@ -1,15 +1,15 @@
 # ⚡ hyperscale
-**Fast recommendations and similarity search**
+**Fast recommendations and vector similarity search**
 
 ## 👋 Hello
 
-`hyperscale` solves the main challenge in recommender systems; querying items fast at scale.
+`hyperscale` solves the main bottleneck in recommender systems; querying items fast at scale.
 
 When the number of items is large, scoring and ranking all combinations is computationally expensive. `hyperscale` implements fast Approximate Nearest Neighbors (ANN) algorithms in high-dimensional space for vector similarity search and maximum inner-product search (recommendation). This method is computationally efficient and able to produce microsecond response-times across millions of items.
 
-Moreover, vector models are also widely used in NLP, computer vision and other fields. `hyperscale` can be used in combination with any (embedding) vector-based model. For example, to quickly find the most similar embeddings learned by a Neural Network or to generate recommendations for users based on any type of Collaborative Filtering model like Matrix Factorization.
+Vector search can be effectively applied to increase customer experience through personalization of content, product upsell, cross-sell and other use-cases.
+Moreover, vector models are also widely used in NLP, computer vision and other fields. `hyperscale` can be used in combination with any (embedding) vector-based model. For example, to quickly find the most similar embeddings learned by a Neural Network like `word2vec` or to generate recommendations for users based on any type of Collaborative Filtering model like Matrix Factorization.
 
-Vector search can also be effectively applied to increase customer experience through personalization of content, product upsell, cross-sell and other use-cases.
 
 ## ✨ Install
 
@@ -17,7 +17,7 @@ Vector search can also be effectively applied to increase customer experience th
 $ pip3 install hyperscale
 ```
 
-## 🚀 Quick start
+## 🚀 Quickstart
 
 `hyperscale` offers a simple Python API. While leveraging C++ under the hood, it avoids engineering complexity to get up and running.
 
@@ -130,7 +130,11 @@ most_similar = hyperscale.find_most_similar(vector_index)
 
 </details>
 
+## 🪄 Algorithm
 
+Using random projections and by building up a tree. At every intermediate node in the tree, a random hyperplane is chosen, which divides the space into two subspaces.
+
+We do this k times so that we get a forest of trees. k has to be tuned to your need, by looking at what tradeoff you have between precision and performance. In practice k should probably be on the order of dimensionality.
 
 ## 🖇️ References
 
