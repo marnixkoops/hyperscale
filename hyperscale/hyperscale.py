@@ -132,7 +132,7 @@ class hyperscale:
         Returns:
             recommendations: Top N item recommendations for each user.
         """
-        logger.info("Augmenting user vectors with extra dimension for recommendation")
+        logger.info("Augmenting user vectors with extra dimension for recommendations")
         extra_dimension = np.zeros((user_vectors.shape[0], 1))
         augmented_user_vectors = np.concatenate((user_vectors, extra_dimension), axis=1)
 
