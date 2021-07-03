@@ -80,12 +80,12 @@ class hyperscale:
     def augment_vectors(self, vectors: np.ndarray) -> np.ndarray:
         """Augments vectors for fast (aproximate) maximum inner product search.
 
-        Transforms each row of a vector matrix by adding an extra dimension giving
+        Transforms each row of a vector matrix by adding an extra dimension yielding
         equal norms. The cosine of the augmented vector is now proportional to the
         inner product. As a result, an angular nearest neighbours search will find
-        vectors that result in the highest inner product.
+        vectors that result in the highest inner (dot) product.
 
-        This approach was introduced in the paper: "Speeding Up the Xbox Recommender
+        This method was introduced in the paper: "Speeding Up the Xbox Recommender
         System Using a Euclidean Transformation for Inner-Product Spaces"
         https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/XboxInnerProduct.pdf
 
