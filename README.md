@@ -7,6 +7,10 @@
 
 When the number of items is large, scoring and ranking all combinations is computationally expensive. `hyperscale` implements Approximate Nearest Neighbors (ANN) algorithms in high-dimensional space for fast (embedding) vector similarity search and maximum inner-product search (recommendation). This method is computationally efficient and able to produce microsecond response-times across millions of items.
 
+It is easy to scale up recommendation or vector similarity search with `hyperscale` after training a model using any popular library. Simply extract the embedding vectors and feed them to `hyperscale`. Some example code snippets are given below.
+
+
+## Use-cases
 Vector search can be effectively applied to increase customer experience through personalization of content, product upsell, cross-sell and other use-cases.
 Moreover, vector models are also widely used in NLP, computer vision and other fields. `hyperscale` can be used in combination with any (embedding) vector-based model. For example, to quickly find the most similar word embeddings learned by a Neural Network like `word2vec` or to generate recommendations for users based on any type of Collaborative Filtering model like Matrix Factorization.
 
@@ -36,7 +40,7 @@ most_similar = hyperscale.find_most_similar(vector_index)
 
 ## ✨ Examples
 
-It is easy to scale up recommendation or vector similarity search after training a model using any popular library. Simply extract the embedding vectors and feed them to `hyperscale`. Some examples are shown below.
+
 
 ###### [`sklearn`](https://github.com/scikit-learn/scikit-learn)
 <details><summary><b>show code</b></summary>
