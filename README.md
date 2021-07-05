@@ -156,7 +156,7 @@ most_similar = hyperscale.find_most_similar(vector_index=vector_index, n_vectors
 
 ## 🧮 Algorithm
 
-`hyperscale` leverages random projections in high-dimensional space to build up a tree structure. Subspaces are created by repeatedly selecting two points at random and dividing them with a hyperplane. A tree is built `k` times to generate a forest of random hyperplanes and subspaces. This is controlled by the `n_trees` parameter when building the vector index. `k` can be tuned to your needs based on the trade-off between precision and performance. In practice, `k` should probably be around the same order of vector dimensionality.
+`hyperscale` leverages random projections in high-dimensional space to build up a tree structure. Subspaces are created by repeatedly selecting two points at random and dividing them with a hyperplane. A tree is built `k` times to generate a forest of random hyperplanes and subspaces. This is controlled by the `n_trees` parameter when building the vector index. This parameter can be tuned to your needs based on the trade-off between precision and performance. In practice, it should probably be around the same order of vector dimensionality.
 
 ## 🔗 References
 
