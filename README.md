@@ -11,10 +11,9 @@ When the number of items is large, scoring and ranking all combinations is compu
 
 
 ## 🧰 Use-cases
-Vector search can be effectively applied to increase customer experience through personalization of content, product upsell, cross-sell and other use-cases.
-Moreover, vector models are also widely used in NLP, computer vision and other fields.
+Efficient vector search can be applied to increase customer experience through personalization of content. For example to generate personalized recommendations for users based on any type of Collaborative Filtering model like Matrix Factorization. Or for product upsell, cross-sell et cetera.
 
-For example, to quickly find the most similar word embeddings learned by a Neural Network like `word2vec` or to generate personalized recommendations for users based on any type of Collaborative Filtering model like Matrix Factorization.
+Vector models are also widely used in NLP, computer vision and other fields. `hyperscale` can for example be used to quickly find the most similar word or image embeddings learned by a Neural Network.
 
 
 ## 🪄 Install
