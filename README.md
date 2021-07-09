@@ -41,8 +41,6 @@ most_similar = hyperscale.find_most_similar(vector_index)
 
 ## ✨ Examples
 
-
-
 ###### [`sklearn`](https://github.com/scikit-learn/scikit-learn)
 <details><summary><b>show code</b></summary>
 
