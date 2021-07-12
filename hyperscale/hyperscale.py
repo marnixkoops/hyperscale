@@ -113,14 +113,14 @@ class hyperscale:
     ) -> np.ndarray:
         """Approximate maximum inner product search for fast recommendations.
 
-        After running an algorithm like Matrix Factorization, every user/item can be
+        After training (embedding) vectors every user/item can be
         represented as an (embedding) vector in n-dimensional space. We increases the
         speed of recommendation and similar user/item search for large data-sets at low
         memory cost.
 
         Uses an implementation of Approximate Nearest Neighbours search.
-        The massive speed-up comes at the cost of slighly reduced precision. In a
-        typical recommendation setting this is not a problem because a large amount of
+        The speed-up comes at the cost of slighly reduced precision. In a typical large
+        scale recommendation setting this is not a problem because a large amount of
         top items are relevant, regardless of negligible differences in estimated score.
 
         Args:
