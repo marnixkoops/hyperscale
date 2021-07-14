@@ -118,7 +118,7 @@ class hyperscale:
         speed of recommendation and similar user/item search for large data-sets at low
         memory cost.
 
-        Uses an implementation of Approximate Nearest Neighbours search.
+        Uses Approximate Nearest Neighbours search to find the maximum inner product.
         The speed-up comes at the cost of slighly reduced precision. In a typical large
         scale recommendation setting this is not a problem because a large amount of
         top items are relevant, regardless of negligible differences in estimated score.
