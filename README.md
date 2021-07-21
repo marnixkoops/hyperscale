@@ -11,7 +11,7 @@ When the number of items is large, scoring and ranking all combinations is compu
 
 ## 🪄 Install
 
-```bash
+```shell
 $ pip3 install hyperscale
 ```
 
