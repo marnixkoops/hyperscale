@@ -18,13 +18,15 @@ class hyperscale:
 
         Leverages random projections in high-dimensional space to build a tree
         structure. Subspaces are created by repeatedly selecting two points at random
-        and dividing them with a hyperplane. A tree is built k times to generate a
-        forest of random hyperplanes and subspaces. This is controlled by the n_trees
-        parameter when building the vector index. More trees is slower but gives higher
-        precision when querying the index. This parameter can be tuned to your needs
-        based on the trade-off between precision and performance. In practice, it
-        should probably be around the same order of vector dimensionality. If n_trees
-        is not defined it will default to the dimensionality of vectors.
+        and dividing them with a hyperplane.
+
+        A tree is built k times to generate a forest of random hyperplanes and
+        subspaces. This is controlled by the n_trees parameter when building the vector
+        index. More trees is slower but gives higher precision when querying the index.
+        This parameter can be tuned to your needs based on the trade-off between
+        precision and performance. In practice, it should probably be around the same
+        order of vector dimensionality. If n_trees is not defined it will default to
+        the dimensionality of the vectors.
 
         This implementation is powered by https://github.com/spotify/annoy.
 
@@ -96,20 +98,21 @@ class hyperscale:
         Transforms each row of a vector matrix by adding an extra dimension yielding
         equal norms. The cosine of the augmented vector is now proportional to the
         inner product. As a result, an angular nearest neighbours search will find
-        vectors that result in the highest inner (dot) product.
+        vectors that result in the highest inner (dot) product. This corresponds to
+        finding the top items in a personalized recommendation or ranking setting.
 
         This method was introduced in the paper: "Speeding Up the Xbox Recommender
         System Using a Euclidean Transformation for Inner-Product Spaces"
         https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/XboxInnerProduct.pdf
 
         Args:
-            vectors: embedding vectors.
+            vectors: Embedding vectors.
 
         Returns:
-            augmented_vectors: Augmented vectors.
+            augmented_vectors: Augmented embedding vectors.
         """
         logger.info(
-            "Augmenting vectors with Euclidean transformation for recommendation"
+            "Augmenting vectors with Euclidean transformation for recommendation."
         )
         vector_norms = np.linalg.norm(vectors, axis=1)
         max_vector_norm = vector_norms.max()
