@@ -22,14 +22,34 @@ $ pip3 install hyperscale
 `hyperscale` offers a simple and lightweight Python API. While leveraging C++ under the hood for speed and scalability, it avoids engineering complexity to get up and running.
 
 ```python
-from hyperscale import hyperscale
 import numpy as np
+from hyperscale import hyperscale
 
-item_vectors = np.random.rand(int(1e6), 32)
-user_vectors = np.random.rand(int(1e4), 32)
+item_vectors = np.random.rand(int(1e5), 16)
+user_vectors = np.random.rand(int(1e4), 16)
 
+hyperscale = hyperscale()
 recommendations = hyperscale.recommend(user_vectors, item_vectors)
-most_similar = hyperscale.find_most_similar(vector_index)
+most_similar = hyperscale.find_similar_vectors(item_vectors)
+
+recommendations
+```
+
+```
+INFO:⚡hyperscale:👥 Augmenting user vectors with extra dimension
+INFO:⚡hyperscale:📐 Augmenting vectors with Euclidean transformation
+INFO:⚡hyperscale:🌲 Building vector index with 17 trees
+100%|██████████| 100000/100000 [00:00<00:00, 349877.84it/s]
+INFO:⚡hyperscale:🔍 Finding top 10 item recommendations for all 10000 users
+100%|██████████| 10000/10000 [00:00<00:00, 27543.66it/s]
+
+array([[24693, 93429, 84972, ..., 75432, 92763, 82794],
+       [74375, 46553, 93429, ..., 92763, 32855, 42209],
+       [42209, 64852, 52691, ..., 97284, 15103,  9693],
+       ...,
+       [ 6321, 42209, 15930, ...,  5718, 18849, 47896],
+       [72212, 89112, 47896, ..., 49733,  9693, 93429],
+       [82773, 72212, 34530, ..., 69396, 85292, 93429]], dtype=int32)
 ```
 
 ## ✨ Examples
@@ -38,6 +58,7 @@ most_similar = hyperscale.find_most_similar(vector_index)
 <details><summary><b>show code</b></summary>
 
 ```python
+import numpy as np
 from hyperscale import hyperscale
 from sklearn.decomposition import NMF
 
@@ -49,8 +70,8 @@ model.fit(matrix)
 user_vectors = model.transform(matrix)
 item_vectors = model.components_.T
 
+hyperscale = hyperscale()
 recommendations = hyperscale.recommend(user_vectors, item_vectors)
-most_similar = hyperscale.find_most_similar(vector_index=vector_index, n_vectors=10)
 ```
 
 </details>
@@ -71,6 +92,7 @@ model.fit(data)
 user_vectors = model.pu
 item_vectors = model.qi
 
+hyperscale = hyperscale()
 recommendations = hyperscale.recommend(user_vectors, item_vectors)
 most_similar = hyperscale.find_most_similar(vectors=item_vectors, n_vectors=10)
 ```
@@ -93,6 +115,7 @@ model.fit(data["train"])
 _, user_vectors = model.get_user_representations(features=None)
 _, item_vectors = model.get_item_representations(features=None)
 
+hyperscale = hyperscale()
 recommendations = hyperscale.recommend(user_vectors, item_vectors)
 most_similar = hyperscale.find_most_similar(vectors=item_vectors, n_vectors=10)
 ```
@@ -116,6 +139,7 @@ model.fit(sparse_matrix)
 user_vectors = model.user_factors
 item_vectors = model.item_factors
 
+hyperscale = hyperscale()
 recommendations = hyperscale.recommend(user_vectors, item_vectors)
 most_similar = hyperscale.find_most_similar(vectors=item_vectors, n_vectors=10)
 ```

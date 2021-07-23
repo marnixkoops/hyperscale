@@ -119,9 +119,7 @@ class hyperscale:
         Returns:
             augmented_vectors: Augmented embedding vectors.
         """
-        logger.info(
-            "📐 Augmenting vectors with Euclidean transformation for recommendation"
-        )
+        logger.info("📐 Augmenting vectors with Euclidean transformation")
         vector_norms = np.linalg.norm(vectors, axis=1)
         max_vector_norm = vector_norms.max()
 
@@ -161,9 +159,7 @@ class hyperscale:
         Returns:
             recommendations: Top N item recommendations for each user.
         """
-        logger.info(
-            "👥 Augmenting user vectors with extra dimension for recommendations"
-        )
+        logger.info("👥 Augmenting user vectors with extra dimension")
         extra_dimension = np.zeros((user_vectors.shape[0], 1))
         augmented_user_vectors = np.concatenate((user_vectors, extra_dimension), axis=1)
 
@@ -172,7 +168,9 @@ class hyperscale:
 
         n_users = augmented_user_vectors.shape[0]
         recommendations = np.empty([n_users, n_vectors], dtype=np.int32)
-        logger.info(f"🔍 Finding top {n_vectors} items for each user")
+        logger.info(
+            f"🔍 Finding top {n_vectors} item recommendations for all {n_users} users"
+        )
         for user in trange(n_users):
             user_vector = augmented_user_vectors[user]
             recommendations[user] = vector_index.get_nns_by_vector(
