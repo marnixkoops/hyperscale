@@ -3,11 +3,13 @@
 
 ## 👋 Hello
 
-`hyperscale` solves the bottleneck in modern recommender systems; querying items fast at scale.
+`hyperscale` mainly solves the bottleneck in recommender systems; querying recommendations fast at scale.
 
-When the number of items is large, scoring and ranking all combinations is computationally expensive. `hyperscale` implements Approximate Nearest Neighbors (ANN) algorithms in high-dimensional space for fast (embedding) vector similarity search and maximum inner-product search (recommendation). This method is computationally efficient and able to produce microsecond response-times across millions of items.
+When the number of items is large, scoring and ranking all combinations is computationally expensive. `hyperscale` implements Approximate Nearest Neighbors (ANN) in high-dimensional space for fast (embedding) vector similarity search and maximum inner-product search (recommendation). This algorithm is computationally efficient and able to produce microsecond response-times across millions of vectors.
 
-`hyperscale` can be used in combination with any (embedding) vector-based model. It is easy to scale up recommendation or vector similarity search after training a model without extra engineering complexity. Vector models are widely used in NLP, recommender systems, computer vision and other fields. `hyperscale` can also be used to quickly find the most similar content embeddings learned by a Neural Network. Simply extract the vectors and feed them to `hyperscale` to handle recommendaton or similarity search. Some example code snippets for popular libraries are listed below.
+`hyperscale` can be used in combination with any (embedding) vector-based model. It is easy to scale up recommendation or vector similarity search after training a model without increasing engineering complexity. Simply extract the trained vectors and feed them to `hyperscale` to handle queries.
+
+For example, it can be used to quickly find the top item recommendations for a user after training a Collaborative Filtering model like Matrix Factorization. Or to quickly find the most similar items in a large set learned by an Embedding Neural Network. Some example code snippets for popular libraries are supplied below.
 
 ## 🪄 Install
 
