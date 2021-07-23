@@ -58,7 +58,11 @@ class hyperscale:
         return vector_index
 
     def find_similar_vectors(
-        self, vector_index: AnnoyIndex, vector_id: int = None, n_vectors: int = 10,
+        self,
+        vectors: np.ndarray,
+        vector_id: int = None,
+        n_vectors: int = 10,
+        n_trees: int = None,
     ) -> List:
         """Finds the most similar vectors using Approximate Nearest Neighbors.
 
@@ -70,10 +74,13 @@ class hyperscale:
             vector_index: Built vector index.
             vector_id: Index of vector to find the most similar vectors for.
             n_vectors: Number of most similar vectors to find.
+            n_trees: Number of trees to build for searching the index.
 
         Returns:
             most_similar_vectors: top N most similar vectors.
         """
+        vector_index = self.build_vector_index(vectors, n_trees=n_trees)
+
         if vector_id is not None:
             logger.info(f"🔍 Querying most similar vectors for vector id {vector_id}")
             most_similar_vectors = vector_index.get_nns_by_item(vector_id, n_vectors)
@@ -82,6 +89,7 @@ class hyperscale:
             most_similar_vectors = np.empty(
                 [n_vectors_in_index, n_vectors], dtype=np.int32
             )
+
             logger.info(
                 f"🔍 Querying most similar vectors for all {n_vectors_in_index} vectors"
             )
@@ -125,14 +133,19 @@ class hyperscale:
         return augmented_vectors
 
     def recommend(
-        self, user_vectors: np.ndarray, item_vectors: np.ndarray, n_vectors: int = 10
+        self,
+        user_vectors: np.ndarray,
+        item_vectors: np.ndarray,
+        n_vectors: int = 10,
+        n_trees: int = None,
     ) -> np.ndarray:
         """Approximate maximum inner product search for fast recommendations.
 
-        After training (embedding) vectors every user/item can be
-        represented as an (embedding) vector in n-dimensional space. We increases the
-        speed of recommendation and similar user/item search for large data-sets at low
-        memory cost.
+        After learning embeddings every user/item can be represented as a vector in
+        n-dimensional space. We increases the speed of recommendation on large data
+        at low memory cost. For example, it can be used to quickly find the top item
+        recommendations for a user after training a Collaborative Filtering model like
+        Matrix Factorization.
 
         Uses Approximate Nearest Neighbours search to find the maximum inner product.
         The speed-up comes at the cost of slighly reduced precision. In a typical large
@@ -142,8 +155,8 @@ class hyperscale:
         Args:
             user_vectors: User embedding vectors.
             item_vectors: Item embedding vectors.
-            n_trees: Number of trees to build for searching the index.
             n_vectors: Number of items to recommend for each input vector.
+            n_trees: Number of trees to build for searching the index.
 
         Returns:
             recommendations: Top N item recommendations for each user.
@@ -155,7 +168,7 @@ class hyperscale:
         augmented_user_vectors = np.concatenate((user_vectors, extra_dimension), axis=1)
 
         augmented_item_vectors = self.augment_vectors(item_vectors)
-        vector_index = self.build_vector_index(augmented_item_vectors, n_trees=5)
+        vector_index = self.build_vector_index(augmented_item_vectors, n_trees=n_trees)
 
         n_users = augmented_user_vectors.shape[0]
         recommendations = np.empty([n_users, n_vectors], dtype=np.int32)

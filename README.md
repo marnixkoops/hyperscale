@@ -29,8 +29,6 @@ item_vectors = np.random.rand(int(1e6), 32)
 user_vectors = np.random.rand(int(1e4), 32)
 
 recommendations = hyperscale.recommend(user_vectors, item_vectors)
-
-vector_index = hyperscale.build_vector_index(item_vectors)
 most_similar = hyperscale.find_most_similar(vector_index)
 ```
 
@@ -52,7 +50,6 @@ user_vectors = model.transform(matrix)
 item_vectors = model.components_.T
 
 recommendations = hyperscale.recommend(user_vectors, item_vectors)
-vector_index = hyperscale.build_vector_index(vectors=item_vectors, n_trees=5)
 most_similar = hyperscale.find_most_similar(vector_index=vector_index, n_vectors=10)
 ```
 
@@ -75,8 +72,7 @@ user_vectors = model.pu
 item_vectors = model.qi
 
 recommendations = hyperscale.recommend(user_vectors, item_vectors)
-vector_index = hyperscale.build_vector_index(vectors=item_vectors, n_trees=5)
-most_similar = hyperscale.find_most_similar(vector_index=vector_index, n_vectors=10)
+most_similar = hyperscale.find_most_similar(vectors=item_vectors, n_vectors=10)
 ```
 
 </details>
@@ -98,8 +94,7 @@ _, user_vectors = model.get_user_representations(features=None)
 _, item_vectors = model.get_item_representations(features=None)
 
 recommendations = hyperscale.recommend(user_vectors, item_vectors)
-vector_index = hyperscale.build_vector_index(vectors=item_vectors, n_trees=5)
-most_similar = hyperscale.find_most_similar(vector_index=vector_index, n_vectors=10)
+most_similar = hyperscale.find_most_similar(vectors=item_vectors, n_vectors=10)
 ```
 
 </details>
@@ -122,8 +117,7 @@ user_vectors = model.user_factors
 item_vectors = model.item_factors
 
 recommendations = hyperscale.recommend(user_vectors, item_vectors)
-vector_index = hyperscale.build_vector_index(vectors=item_vectors, n_trees=5)
-most_similar = hyperscale.find_most_similar(vector_index=vector_index, n_vectors=10)
+most_similar = hyperscale.find_most_similar(vectors=item_vectors, n_vectors=10)
 ```
 
 </details>
@@ -141,8 +135,7 @@ gensim_vectors = model.wv
 item_vectors = gensim_vectors.get_normed_vectors()
 
 hyperscale = hyperscale()
-vector_index = hyperscale.build_vector_index(vectors=item_vectors, n_trees=5)
-most_similar = hyperscale.find_most_similar(vector_index=vector_index, n_vectors=10)
+most_similar = hyperscale.find_most_similar(vectors=item_vectors, n_vectors=10)
 ```
 
 </details>
