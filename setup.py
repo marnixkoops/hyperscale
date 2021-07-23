@@ -23,6 +23,5 @@ setup(
         "approximate nearest neighbors",
     ],
     url="http://github.com/marnixkoops/hyperscale",
-    packages=["", ""],
     long_description="",
 )
