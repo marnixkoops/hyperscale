@@ -12,22 +12,35 @@ logger = logging.getLogger("⚡hyperscale")
 
 class hyperscale:
     def build_vector_index(
-        self, vectors: np.ndarray, n_trees: int = 5, save_index: bool = False
+        self, vectors: np.ndarray, n_trees: int = None, save_index: bool = False
     ) -> AnnoyIndex:
         """Builds a vector index for Approximate Nearest Neighbor search.
 
-        More trees is slower but gives higher precision when querying.
+        Leverages random projections in high-dimensional space to build a tree
+        structure. Subspaces are created by repeatedly selecting two points at random
+        and dividing them with a hyperplane. A tree is built k times to generate a
+        forest of random hyperplanes and subspaces. This is controlled by the n_trees
+        parameter when building the vector index. More trees is slower but gives higher
+        precision when querying the index. This parameter can be tuned to your needs
+        based on the trade-off between precision and performance. In practice, it
+        should probably be around the same order of vector dimensionality. If n_trees
+        is not defined it will default to the dimensionality of vectors.
+
         This implementation is powered by https://github.com/spotify/annoy.
 
         Args:
-            vectors: (embedding) vectors.
+            vectors: Embedding vectors.
             n_trees: Number of trees to build for searching the index.
-            save_index: Whether to save the index on disk.
+            save_index: Whether to save the vector index on disk.
 
         Returns:
-            vector_index: Built vector index.
+            vector_index: Vector index for Approximate Nearest Neigbor search.
         """
-        logger.info(f"Building vector index with {n_trees} trees")
+        if n_trees is None:
+            n_trees = vectors.shape[1]
+
+        logger.info(f"Building vector index with {n_trees} trees.")
+
         n_dimensions = vectors.shape[1]
         vector_index = AnnoyIndex(n_dimensions, metric="angular")
 
@@ -42,7 +55,7 @@ class hyperscale:
 
         return vector_index
 
-    def find_most_similar(
+    def find_similar_vectors(
         self, vector_index: AnnoyIndex, vector_id: int = None, n_vectors: int = 10,
     ) -> List:
         """Finds the most similar vectors using Approximate Nearest Neighbors.
@@ -90,10 +103,10 @@ class hyperscale:
         https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/XboxInnerProduct.pdf
 
         Args:
-            vectors: (Embedding) vectors.
+            vectors: embedding vectors.
 
         Returns:
-            augmented_vectors: Augmented (embedding) vectors.
+            augmented_vectors: Augmented vectors.
         """
         logger.info(
             "Augmenting vectors with Euclidean transformation for recommendation"
