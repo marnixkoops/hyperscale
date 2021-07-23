@@ -41,7 +41,7 @@ class hyperscale:
         if n_trees is None:
             n_trees = vectors.shape[1]
 
-        logger.info(f"Building vector index with {n_trees} trees.")
+        logger.info(f"🌲 Building vector index with {n_trees} trees")
 
         n_dimensions = vectors.shape[1]
         vector_index = AnnoyIndex(n_dimensions, metric="angular")
@@ -75,7 +75,7 @@ class hyperscale:
             most_similar_vectors: top N most similar vectors.
         """
         if vector_id is not None:
-            logger.info(f"Querying most similar vectors for vector id {vector_id}")
+            logger.info(f"🔍 Querying most similar vectors for vector id {vector_id}")
             most_similar_vectors = vector_index.get_nns_by_item(vector_id, n_vectors)
         else:
             n_vectors_in_index = vector_index.get_n_items()
@@ -83,7 +83,7 @@ class hyperscale:
                 [n_vectors_in_index, n_vectors], dtype=np.int32
             )
             logger.info(
-                f"Querying most similar vectors for all {n_vectors_in_index} vectors"
+                f"🔍 Querying most similar vectors for all {n_vectors_in_index} vectors"
             )
             for vector in trange(n_vectors_in_index):
                 most_similar_vectors[vector] = vector_index.get_nns_by_item(
@@ -112,7 +112,7 @@ class hyperscale:
             augmented_vectors: Augmented embedding vectors.
         """
         logger.info(
-            "Augmenting vectors with Euclidean transformation for recommendation."
+            "📐 Augmenting vectors with Euclidean transformation for recommendation"
         )
         vector_norms = np.linalg.norm(vectors, axis=1)
         max_vector_norm = vector_norms.max()
@@ -148,7 +148,9 @@ class hyperscale:
         Returns:
             recommendations: Top N item recommendations for each user.
         """
-        logger.info("Augmenting user vectors with extra dimension for recommendations")
+        logger.info(
+            "👥 Augmenting user vectors with extra dimension for recommendations"
+        )
         extra_dimension = np.zeros((user_vectors.shape[0], 1))
         augmented_user_vectors = np.concatenate((user_vectors, extra_dimension), axis=1)
 
@@ -157,7 +159,7 @@ class hyperscale:
 
         n_users = augmented_user_vectors.shape[0]
         recommendations = np.empty([n_users, n_vectors], dtype=np.int32)
-        logger.info(f"Finding top {n_vectors} items for each user")
+        logger.info(f"🔍 Finding top {n_vectors} items for each user")
         for user in trange(n_users):
             user_vector = augmented_user_vectors[user]
             recommendations[user] = vector_index.get_nns_by_vector(
