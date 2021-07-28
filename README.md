@@ -31,8 +31,6 @@ user_vectors = np.random.rand(int(1e4), 16)
 hyperscale = hyperscale()
 recommendations = hyperscale.recommend(user_vectors, item_vectors)
 most_similar = hyperscale.find_similar_vectors(item_vectors)
-
-recommendations
 ```
 
 ```
