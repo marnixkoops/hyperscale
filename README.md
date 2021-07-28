@@ -97,7 +97,7 @@ item_vectors = model.qi
 
 hyperscale = hyperscale()
 recommendations = hyperscale.recommend(user_vectors, item_vectors)
-most_similar = hyperscale.find_most_similar(vectors=item_vectors, n_vectors=10)
+most_similar = hyperscale.find_similar_vectors(vectors=item_vectors, n_vectors=10)
 ```
 
 </details>
@@ -120,7 +120,7 @@ _, item_vectors = model.get_item_representations(features=None)
 
 hyperscale = hyperscale()
 recommendations = hyperscale.recommend(user_vectors, item_vectors)
-most_similar = hyperscale.find_most_similar(vectors=item_vectors, n_vectors=10)
+most_similar = hyperscale.find_similar_vectors(vectors=item_vectors, n_vectors=10)
 ```
 
 </details>
@@ -144,7 +144,7 @@ item_vectors = model.item_factors
 
 hyperscale = hyperscale()
 recommendations = hyperscale.recommend(user_vectors, item_vectors)
-most_similar = hyperscale.find_most_similar(vectors=item_vectors, n_vectors=10)
+most_similar = hyperscale.find_similar_vectors(vectors=item_vectors, n_vectors=10)
 ```
 
 </details>
@@ -162,7 +162,7 @@ gensim_vectors = model.wv
 item_vectors = gensim_vectors.get_normed_vectors()
 
 hyperscale = hyperscale()
-most_similar = hyperscale.find_most_similar(vectors=item_vectors, n_vectors=10)
+most_similar = hyperscale.find_similar_vectors(vectors=item_vectors, n_vectors=10)
 ```
 
 </details>
