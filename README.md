@@ -167,10 +167,6 @@ most_similar = hyperscale.find_similar_vectors(vectors=item_vectors, n_vectors=1
 
 </details>
 
-## 🧮 Algorithm
-
-`hyperscale` leverages random projections in high-dimensional space to build up a tree structure. Subspaces are created by repeatedly selecting two points at random and dividing them with a hyperplane. A tree is built `k` times to generate a forest of random hyperplanes and subspaces. This is controlled by the `n_trees` parameter when building the vector index. This parameter can be tuned to your needs based on the trade-off between precision and performance. In practice, it should probably be around the same order of vector dimensionality.
-
 ## 🔗 References
 
 * Bachrach, Yoram, et al. ["Speeding up the Xbox Recommender System using a Euclidean transformation for inner-product spaces."](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/XboxInnerProduct.pdf) *Proceedings of the 8th ACM Conference on Recommender systems. 2014.*

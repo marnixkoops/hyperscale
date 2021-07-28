@@ -21,6 +21,7 @@ setup(
         "customer experience",
         "embeddings",
         "approximate nearest neighbors",
+        "annoy",
     ],
     url="http://github.com/marnixkoops/hyperscale",
     long_description="",
