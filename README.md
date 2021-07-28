@@ -60,11 +60,14 @@ array([[24693, 93429, 84972, ..., 75432, 92763, 82794],
 ```python
 import numpy as np
 from hyperscale import hyperscale
-from sklearn.decomposition import NMF
+from sklearn.decomposition import NMF, TruncatedSVD
 
 matrix = np.random.rand(1000, 1000)
 
 model = NMF(n_components=16)
+model.fit(matrix)
+
+model = TruncatedSVD(n_components=16)
 model.fit(matrix)
 
 user_vectors = model.transform(matrix)
