@@ -5,7 +5,7 @@
 
 `hyperscale` mainly solves the bottleneck in recommender systems; querying recommendations fast at scale.
 
-When the number of items is large, scoring and ranking all combinations is computationally expensive. `hyperscale` implements Approximate Nearest Neighbors (ANN) in high-dimensional space for fast (embedding) vector similarity search and maximum inner-product search (recommendation). This algorithm is computationally efficient and able to produce microsecond response-times across millions of vectors.
+When the number of items is large, scoring and ranking all combinations is computationally expensive. `hyperscale` implements Approximate Nearest Neighbors (ANN) in high-dimensional space for fast (embedding) vector similarity search and maximum inner-product search (recommendation). This algorithm is computationally efficient and able to produce microsecond response-times across millions of items.
 
 `hyperscale` can be used in combination with any (embedding) vector-based model. It is easy to scale up recommendation or vector similarity search without increasing engineering complexity. Simply extract the trained embeddings and feed them to `hyperscale` to handle querying.
 
