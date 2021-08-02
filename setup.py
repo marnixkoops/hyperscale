@@ -24,5 +24,7 @@ setup(
         "annoy",
     ],
     url="http://github.com/marnixkoops/hyperscale",
-    long_description="",
+    long_description="""⚡ Fast recommendations and vector similarity search.
+    Hyperscale offers a simple Python API while leveraging ANN algorithms in C++ under
+    the hood for speed and scalability.""",
 )
