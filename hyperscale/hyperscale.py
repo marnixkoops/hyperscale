@@ -12,7 +12,11 @@ logger = logging.getLogger("⚡hyperscale")
 
 class hyperscale:
     def build_vector_index(
-        self, vectors: np.ndarray, n_trees: int = None, save_index: bool = False
+        self,
+        vectors: np.ndarray,
+        n_trees: int = None,
+        metric: str = "angular",
+        save_index: bool = False,
     ) -> AnnoyIndex:
         """Builds a vector index for Approximate Nearest Neighbor search.
 
@@ -33,6 +37,7 @@ class hyperscale:
         Args:
             vectors: Embedding vectors.
             n_trees: Number of trees to build for searching the index.
+            metric:
             save_index: Whether to save the vector index on disk.
 
         Returns:
@@ -44,7 +49,7 @@ class hyperscale:
         logger.info(f"🌲 Building vector index with {n_trees} trees")
 
         n_dimensions = vectors.shape[1]
-        vector_index = AnnoyIndex(n_dimensions, metric="angular")
+        vector_index = AnnoyIndex(n_dimensions, metric=metric)
 
         for item in trange(vectors.shape[0]):
             vector = vectors[item]
@@ -79,7 +84,9 @@ class hyperscale:
         Returns:
             most_similar_vectors: top N most similar vectors.
         """
-        vector_index = self.build_vector_index(vectors, n_trees=n_trees)
+        vector_index = self.build_vector_index(
+            vectors, n_trees=n_trees, metric="euclidean"
+        )
 
         if vector_id is not None:
             logger.info(f"🔍 Querying most similar vectors for vector id {vector_id}")
