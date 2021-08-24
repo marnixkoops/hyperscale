@@ -171,7 +171,7 @@ most_similar = hyperscale.find_similar_vectors(vectors=item_vectors, n_vectors=1
 
 ## 🧮 Algorithm
 
-The problem with popular approximate nearest neighbour libraries is that the predictor for most latent factor models is the inner product instead of cosine or euclidiean distance. This library supports maximum inner product search using approximate nearest neighbors. In order to do so, we need a little trick.
+The problem with popular approximate nearest neighbour libraries is that the predictor for most latent factor models is the inner product instead of cosine or euclidiean distance. This library supports maximum inner product search leveraging approximate nearest neighbors. In order to do so, we need a little trick.
 
 Getting the top nearest neighbours by the inner product is more complicated than using proper distance metrics like Euclidean or Cosine distance. The challenge is that the inner product does not form a proper metric space. Since the similarity scores for the inner product are unbounded, this means that a point might not be its own nearest neighbour. This violates the triangle inequality and invalidates some common approaches for approximate nearest neighbours.
 
