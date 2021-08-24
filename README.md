@@ -171,8 +171,9 @@ most_similar = hyperscale.find_similar_vectors(vectors=item_vectors, n_vectors=1
 
 ## 🧮 Algorithm
 
-In summary, the simple yet effective concept is to consider searching only through a subset of possible top items for each query instead of considering the full item set.
-Limiting the search space to a subset for each query does not guarantee to find the exact nearest neighbor in each case. Hence, in some cases a neighbor can be missed and the result is approximate.
+In summary, the simple yet effective concept is to search only through a subset of possible top items for each query instead of considering the full item set.
+Limiting the search space to a subset means there is no guarantee to find the exact nearest neighbor in each case.
+Sometimes a neighbor can be missed and the result is approximate.
 
 The problem with popular approximate nearest neighbour libraries is that the predictor for most latent factor models is the inner product instead of cosine or euclidiean distance. This library supports maximum inner product search leveraging approximate nearest neighbors. In order to do so, we need a little trick.
 
