@@ -179,7 +179,7 @@ The problem with popular approximate nearest neighbour libraries is that the pre
 
 Getting the top nearest neighbours by the inner product is more complicated than using proper distance metrics like Euclidean or Cosine distance. The challenge is that the inner product does not form a proper metric space. Since the similarity scores for the inner product are unbounded, this means that a point might not be its own nearest neighbour. This violates the triangle inequality and invalidates some common approaches for approximate nearest neighbours.
 
-Luckily the paper "Speeding Up the Xbox Recommender System Using a Euclidean Transformation for Inner-Product Spaces" explains how to transform the inner product search so that it can be done on top of a Cosine based nearest neighbours query. This involves adding an extra dimension to each item factor, such that each row in the item factors matrix has the same norm. When querying, this extra dimension is set to 0 - which means that the cosine will be proportional to the dot product after this transformation has taken place.
+The paper "Speeding Up the Xbox Recommender System Using a Euclidean Transformation for Inner-Product Spaces" explains how to transform the inner product search so that it can be done on top of a Cosine based nearest neighbours query. This involves adding an extra dimension to each item factor, such that each row in the item factors matrix has the same norm. When querying, this extra dimension is set to 0 - which means that the cosine will be proportional to the dot product after this transformation has taken place.
 
 ## 🔗 References
 
