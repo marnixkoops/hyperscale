@@ -3,10 +3,6 @@
 
 ## 👋 Hello
 
-!!!! https://github.com/hora-search/hora
-!!!! https://www.pinecone.io
-
-
 `hyperscale` mainly solves the bottleneck in recommender systems; querying recommendations fast at scale.
 
 When the number of items is large, scoring and ranking all combinations is computationally expensive. `hyperscale` implements Approximate Nearest Neighbors (ANN) in high-dimensional space for fast (embedding) vector similarity search and maximum inner-product search (recommendation). This algorithm is computationally efficient and able to produce microsecond response-times across millions of items.
