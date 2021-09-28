@@ -13,7 +13,7 @@ For example, it can be used to quickly find the top item recommendations for a u
 
 ## 🪄 Install
 
-```shell
+```bash
 $ pip3 install hyperscale
 ```
 
